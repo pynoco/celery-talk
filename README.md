@@ -38,6 +38,12 @@ Running the Worker
 celery -A celery_demo worker -l info
 ```
 
+Start Flower
+
+```
+celery flower -A celery_demo --address=0.0.0.0 --port=5555
+```
+
 Resources
 ---------
 

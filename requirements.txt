@@ -2,4 +2,4 @@ django
 celery
 django-celery
 south
-
+flower
