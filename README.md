@@ -32,6 +32,12 @@ source celery-talk-venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Running the Worker
+
+```
+celery -A celery_demo worker -l info
+```
+
 Resources
 ---------
 
