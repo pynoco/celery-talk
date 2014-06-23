@@ -32,6 +32,12 @@ source celery-talk-venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Start Flower
+
+```
+celery flower -A celery_demo --address=0.0.0.0 --port=5555
+```
+
 Resources
 ---------
 
