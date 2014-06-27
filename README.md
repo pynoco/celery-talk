@@ -26,7 +26,7 @@ vagrant up
 vagrant ssh
 sudo apt-get update
 sudo apt-get install python-pip python2.7-dev python-virtualenv python-setuptools git rabbitmq-server supervisor
-cd /home/vagrant/celery-talk
+cd /home/vagrant/celery-demo
 virtualenv celery-talk-venv
 source celery-talk-venv/bin/activate
 pip install -r requirements.txt
