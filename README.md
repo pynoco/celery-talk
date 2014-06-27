@@ -52,7 +52,7 @@ Start Flower
 
 ```
 cd /home/vagrant/celery-demo/celery_demo
-celery flower -A celery_demo --address=0.0.0.0 --port=5555 --broker_api=http://guest:guest@localhost:15572/api/
+celery flower -A celery_demo --address=0.0.0.0 --port=5555 --broker_api=http://guest:guest@localhost:55672/api/
 ```
 
 Resources
