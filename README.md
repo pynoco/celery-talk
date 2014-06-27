@@ -49,3 +49,4 @@ Resources
 
 - [The Celery Project](http://www.celeryproject.org)
 - [First Steps with Celery/Django](http://celery.readthedocs.org/en/latest/django/first-steps-with-django.html)
+- [Celery Flower](https://github.com/mher/flower)
