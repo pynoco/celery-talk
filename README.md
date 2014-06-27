@@ -32,6 +32,13 @@ source celery-talk-venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Enable Rabbitmq Management Plugin (Required for flower)
+
+```
+cd /usr/lib/rabbitmq/lib/rabbitmq_server-2.7.1/sbin
+sudo ./rabbitmq-plugins enable rabbitmq_management
+```
+
 Running the Worker
 
 ```
@@ -41,7 +48,7 @@ celery -A celery_demo worker -l info
 Start Flower
 
 ```
-celery flower -A celery_demo --address=0.0.0.0 --port=5555
+celery flower -A celery_demo --address=0.0.0.0 --port=5555 --broker_api=http://guest:guest@localhost:15572/api/
 ```
 
 Resources
