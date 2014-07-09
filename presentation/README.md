@@ -8,7 +8,7 @@ Keynote Presentation Outline
 - Setting up to work with Django
 - Creating and executing tasks in Django
 - Demo
-- Deployment options 
+- Deployment with Supervisor 
 - Demo
 - Monitoring with Flower
 - Demo

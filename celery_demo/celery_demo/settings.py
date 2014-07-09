@@ -14,7 +14,6 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 """
@@ -57,8 +56,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'store',
-    'djcelery',
-    'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,3 +100,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+
+from celery.schedules import crontab
+
+CELERYBEAT_SCHEDULE = {
+    # Executes every Monday morning at 7:30 A.M
+    'add-every-monday-morning': {
+        'task': 'store.tasks.add',
+        'schedule': crontab(minute=2),
+        'args': (16, 16),
+    },
+}

@@ -136,7 +136,7 @@ layout: false
 
   Asynchronous processing is an easy way to defer processing of
   non-real time code.
-  
+
 ```python
 from celery.task import task
 
@@ -163,18 +163,13 @@ layout: false
 .right-column[
   Celery is a robust task worker solution implemented in Python that can consume tasks from numerous types of message brokers.
   Some highlights include:
-  
-- Good support for both RabbitMQ and Redis as message brokers
 
-- 
+- Good support for both RabbitMQ and Redis as message brokers.  (Others can be used but not officially supported.)
 
-- Syntax highlighting, supporting a range of languages
+- Easily scalable, supports autoscaling, and clustering is fairly easy.
 
-- Slide scaling, thus similar appearance on all devices / resolutions .red[*]
+- Support for scheduled and delayed tasks
 
-- Touch support for smart phones and pads, i.e. swipe to navigate slides
-
-.footnote[.red[*] At least browsers try their best]
 ]
 ---
 .left-column[
@@ -182,48 +177,39 @@ layout: false
   ## Why use it?
 ]
 .right-column[
-If your ideal slideshow creation workflow contains any of the following steps:
+Asynchronous processing can be a great solution for several different types of issues.
 
-- Just write what's on your mind
+- Long running processes that do not need to return a response to the browser
 
-- Do some basic styling
+- Processing photos
 
-- Easily collaborate with others
+- Additional processing after payments
 
-- Share with and show to everyone
+- Any kind of work that can be done outside of the web request.
 
-Then remark might be perfect for your next.red[*] slideshow!
-
-.footnote[.red[*] You probably want to convert existing slideshows as well]
 ]
 ---
 .left-column[
   ## What is it?
   ## Why use it?
+  ## Use Cases
 ]
 .right-column[
-As the slideshow is expressed using Markdown, you may:
+Any work that can doesn't need to return a response to the user is a good candidate for async processing.  Some use cases include:
 
-- Focus on the content, expressing yourself in next to plain text not worrying what flashy graphics and disturbing effects to put where
+- Sending Emails
 
-As the slideshow is actually an HTML document, you may:
+- Additional processing on transactions
 
-- Display it in any decent browser
+- Sending anyaltyics
 
-- Style it using regular CSS, just like any other HTML content
+- Processing thumbnails for photos
 
-- Use it offline!
-
-As the slideshow is contained in a plain file, you may:
-
-- Store it wherever you like; on your computer, hosted from your Dropbox, hosted on Github Pages alongside the stuff you're presenting...
-
-- Easily collaborate with others, keeping track of changes using your favourite SCM tool, like Git or Mercurial
 ]
 ---
 template: inverse
 
-## How does it work, then?
+## Installation and integration with Django
 ---
 name: how
 
@@ -498,6 +484,6 @@ Slideshow created using [remark](http://github.com/gnab/remark).
           ratio: '16:9',
         }) ;
     </script>
-    
+
   </body>
 </html>
