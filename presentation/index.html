@@ -214,71 +214,66 @@ template: inverse
 name: how
 
 .left-column[
-  ## How does it work?
-### - Markdown
+  ## Quick and easy install with Django
 ]
 .right-column[
-A Markdown-formatted chunk of text is transformed into individual slides by JavaScript running in the browser:
 
-```remark
-# Slide 1
-This is slide 1
+- Celery can of course be used outside of Django
 
----
+- Install Redis or RabbitMQ for your distro
 
-# Slide 2
-This is slide 2
+```python
+pip install celery
 ```
 
-.slides[
-  .first[
-  ### Slide 1
-  This is slide 1
-  ]
-  .second[
-  ### Slide 2
-  This is slide 2
-  ]
-]
+Configure Celery.py
 
-Regular Markdown rules apply with only a single exception:
+```python
+from __future__ import absolute_import
 
-  - A line containing three dashes constitutes a new slide
-  (not a horizontal rule, `&lt;hr /&gt;`)
+import os
 
-Have a look at the [Markdown website](http://daringfireball.net/projects/markdown/) if you're not familiar with Markdown formatting.
+from celery import Celery
+
+from django.conf import settings
+
+# set the default Django settings module for the 'celery' program.
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'celery_demo.settings')
+
+app = Celery('celery_demo')
+
+# Using a string here means the worker will not have to
+# pickle the object when using Windows.
+app.config_from_object('django.conf:settings')
+app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+```
+
 ]
 ---
 .left-column[
-  ## How does it work?
-  ### - Markdown
-  ### - Inside HTML
+  ## Quick and easy install with Django
+  ### - Settings.py
 ]
 .right-column[
-A simple HTML document is needed for hosting the styles, Markdown and the generated slides themselves:
+```python
+from __future__ import absolute_import
+# ^^^ The above is required if you want to import from the celery
+# library.  If you don't have this then `from celery.schedules import`
+# becomes `proj.celery.schedules` in Python 2.x since it allows
+# for relative imports by default.
 
-```xml
-<!DOCTYPE html>
-<html>
-  <head>
-    <style type="text/css">
-      /* Slideshow styles */
-    </style>
-  </head>
-  <body>
-*    <textarea id="source">
-      <!-- Slideshow Markdown -->
-    &lt;/textarea&gt;
-*    <script type="text/javascript" src="remark.js">
-    </script>
-    <script type="text/javascript">
-*      var slideshow = remark.create();
-    </script>
-  </body>
-</html>
+# Celery settings
+
+BROKER_URL = 'amqp://guest:guest@localhost/'
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 ```
-
-You may download remark to have your slideshow not depend on any online resources, or reference the [latest version](http://remarkjs.com/downloads/remark-latest.min.js) online directly.
 ]
 ---
 template: inverse
