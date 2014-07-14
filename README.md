@@ -61,3 +61,4 @@ Resources
 - [The Celery Project](http://www.celeryproject.org)
 - [First Steps with Celery/Django](http://celery.readthedocs.org/en/latest/django/first-steps-with-django.html)
 - [Celery Flower](https://github.com/mher/flower)
+- [Django Celery and Reids](https://godjango.com/63-deferred-tasks-and-scheduled-jobs-with-celery-31-django-17-and-redis/)
