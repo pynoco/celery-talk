@@ -1,13 +1,14 @@
-Keynote Presentation Outline
-============================
+Presentation Outline
+====================
 
 - Introduction to Celery and Async Processing
 - Use Cases
-- Checkout/Processing/Emails
+- Checkout/Processing/Emails/Image Processing
 - Installation
 - Setting up to work with Django
 - Creating and executing tasks in Django
-- Demo
+- Demo with Command Line
+- Demo with Web interface. (Show how it would work both with and without celery)
 - Deployment with Supervisor 
 - Demo
 - Monitoring with Flower
