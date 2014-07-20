@@ -340,6 +340,8 @@ autorestart=true
 redirect_stderr=True
 ```
 
+- Celery must be restarted after new code is deployed!!
+
 ]
 ---
 template: inverse
@@ -374,18 +376,30 @@ template: inverse
 
 .right-column[
 
+- Celery likes to fail hard.
+
+- Propogate errors to something like Sentry.
+
+- Good idea to tail the log right after deployments for heavy use sites
+
 
 ]
 
 ---
 
 .left-column[
-  ## Next Steps
+  ## Next Steps/Further Reading
 ]
 
 .right-column[
 
+We just scratched the surface of what you can accomplish using Celery.  Take a
+look at the docs for further information.
+
+
 - [Celery Docs](https://celery.readthedocs.org)
+- [Celery Flower]()
+- [Django Docs]()
 
 ]
 
