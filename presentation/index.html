@@ -135,7 +135,7 @@ with Celery and Django
 layout: false
 
   Asynchronous processing is an easy way to defer processing of
-  non-real time code.
+  non-real time dependent code.
 
 ```python
 from celery.task import task
@@ -155,6 +155,9 @@ def build_thumbnails(photo):
     photo.make_thumbnails()
 ```
 
+  If some code can be taken out of the request/response cycle
+  it should.
+
 ---
 layout: false
 .left-column[
@@ -170,6 +173,8 @@ layout: false
 
 - Support for scheduled and delayed tasks
 
+- Can be monitored using Celery Flower
+
 ]
 ---
 .left-column[
@@ -181,11 +186,7 @@ Asynchronous processing can be a great solution for several different types of i
 
 - Long running processes that do not need to return a response to the browser
 
-- Processing photos
-
-- Additional processing after payments
-
-- Any kind of work that can be done outside of the web request.
+- Scheduled tasks that would otherwise be performed with cron
 
 ]
 ---
@@ -278,192 +279,125 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 ---
 template: inverse
 
-## Of course, Markdown can only go so far.
+## A Basic Celery Task
 ---
 .left-column[
-  ## Markdown extensions
+  ## Task Creation
 ]
 .right-column[
-To help out with slide layout and formatting, a few Markdown extensions have been included:
+Celery tasks are just python methods that either inherit from the Task class
+or are decorated with ```@shared_task```
 
-- Slide properties, for naming, styling and templating slides
+```python
+from __future__ import absolute_import
+import time
+from celery import shared_task
 
-- Content classes, for styling specific content
 
-- Syntax highlighting, supporting a range of languages
-]
-
----
-.left-column[
-  ## Markdown extensions
-  ### - Slide properties
-]
-.right-column[
-Initial lines containing key-value pairs are extracted as slide properties:
-
-```remark
-name: agenda
-class: middle, center
-
-# Agenda
-
-The name of this slide is {{ name }}.
+@shared_task
+def add(x, y):
+    print(x + y)
+    return x + y
 ```
 
-Slide properties serve multiple purposes:
+Tasks are then called in your code with the ```.delay()``` method.
 
-* Naming and styling slides using properties `name` and `class`
+```python
 
-* Using slides as templates using properties `template` and `layout`
+from mymodule.tasks import add
 
-* Expansion of `{{ property }}` expressions to property values
-
-See the [complete list](https://github.com/gnab/remark/wiki/Slide-Properties) of slide properties.
-]
----
-.left-column[
-  ## Markdown extensions
-  ### - Slide properties
-  ### - Content classes
-]
-.right-column[
-Any occurences of one or more dotted CSS class names followed by square brackets are replaced with the contents of the brackets with the specified classes applied:
-
-```remark
-.footnote[.red.bold[*] Important footnote]
+add.delay(3, 8)
 ```
 
-Resulting HTML extract:
-
-```xml
-<span class="footnote">
-  <span class="red bold">*</span> Important footnote
-</span>
-```
-]
----
-.left-column[
-  ## Markdown extensions
-  ### - Slide properties
-  ### - Content classes
-  ### - Syntax Highlighting
-]
-.right-column[
-Code blocks can be syntax highlighted by specifying a language from the set of [supported languages](https://github.com/gnab/remark/wiki/Configuration-Options#wiki-highlighting).
-
-Using [GFM](http://github.github.com/github-flavored-markdown/) fenced code blocks you can easily specify highlighting language:
-
-.pull-left[
-
-<pre><code>```javascript
-function add(a, b)
-  return a + b
-end
-```</code></pre>
-]
-.pull-right[
-
-<pre><code>```ruby
-def add(a, b)
-  a + b
-end
-```</code></pre>
-]
-
-A number of highlighting [styles](https://github.com/gnab/remark/wiki/Configuration-Options#wiki-highlighting) are available, including several well-known themes from different editors and IDEs.
-
-]
----
-.left-column[
-  ## Presenter mode
-]
-.right-column[
-To help out with giving presentations, a presenter mode comprising the
-following features is provided:
-
-- Display of slide notes for the current slide, to help you remember
-  key points
-
-- Display of upcoming slide, to let you know what's coming
-
-- Cloning of slideshow for viewing on extended display
-]
----
-.left-column[
-  ## Presenter mode
-  ### - Inline notes
-]
-.right-column[
-Just like three dashes separate slides,
-three question marks separate slide content from slide notes:
-
-```
-Slide 1 content
-
-*???
-
-Slide 1 notes
-
----
-
-Slide 2 content
-
-*???
-
-Slide 2 notes
-```
-
-Slide notes are also treated as Markdown, and will be converted in the
-same manner slide content is.
-
-Pressing __P__ will toggle presenter mode.
-]
-???
-Congratulations, you just toggled presenter mode!
-
-Now press __P__ to toggle it back off.
----
-.left-column[
-  ## Presenter mode
-  ### - Inline notes
-  ### - Cloned view
-]
-.right-column[
-Presenter mode of course makes no sense to the audience.
-
-Creating a cloned view of your slideshow lets you:
-
-- Move the cloned view to the extended display visible to the audience
-
-- Put the original slideshow in presenter mode
-
-- Navigate as usual, and the cloned view will automatically keep up with the original
-
-Pressing __C__ will open a cloned view of the current slideshow in a new
-browser window.
 ]
 ---
 template: inverse
 
-## It's time to get started!
+## Demo
+
 ---
+template: inverse
+
+## Deployment with Supervisor
+
+---
+
 .left-column[
-  ## Getting started
+  ## Deployment
 ]
+
 .right-column[
-Getting up and running is done in only a few steps:
+Deployment is straightforward.  The typical way to start and stop Celery in production
+is with Supervisor.
 
-1. Visit the [project site](http://github.com/gnab/remark)
+```ini
+[program:derek_stegelman_com_celery]
+command=/srv/www/virtualenvs/derek-stegelman-com/bin/python /srv/www/projects/derek-stegelman-com/manage.py celery worker -B --concurrency=1 --loglevel=info --settings=settings.production
+directory=/srv/www/projects/derek-stegelman-com
+user=dstegelman
+autostart=true
+autorestart=true
+redirect_stderr=True
+```
 
-2. Follow the steps in the Getting Started section
-
-For more information on using remark, please check out the [wiki](https://github.com/gnab/remark/wiki) pages.
 ]
+---
+template: inverse
+
+## Demo Supervisor
+
+---
+template: inverse
+
+## Monitoring Celery with Flower
+
+---
+
+.left-column[
+  ## Monitor with Flower
+]
+
+.right-column[
+![image](https://camo.githubusercontent.com/4b9b7f1754677a19016fedbf2cd3edeb07a3c59e/68747470733a2f2f7261772e6769746875622e636f6d2f6d6865722f666c6f7765722f6d61737465722f646f63732f73637265656e73686f74732f64617368626f6172642e706e67)
+
+]
+
+---
+template: inverse
+
+## Demo
+---
+
+.left-column[
+  ## Debugging
+]
+
+.right-column[
+
+
+]
+
+---
+
+.left-column[
+  ## Next Steps
+]
+
+.right-column[
+
+- [Celery Docs](https://celery.readthedocs.org)
+
+]
+
+
 ---
 name: last-page
 template: inverse
 
-## That's all folks (for now)!
+## Thanks!
+
+- Twitter: @derekstegelman
+- Github: dstegelman
 
 Slideshow created using [remark](http://github.com/gnab/remark).
     </textarea>
