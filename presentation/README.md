@@ -9,6 +9,7 @@ Presentation Outline
 - Creating and executing tasks in Django
 - Demo with Command Line
 - Demo with Web interface. (Show how it would work both with and without celery)
+- Scheduled Tasks
 - Deployment with Supervisor 
 - Demo
 - Monitoring with Flower
