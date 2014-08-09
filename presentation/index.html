@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="remark,remarkjs,markdown,slideshow,presentation" />
     <meta name="description" content="A simple, in-browser, markdown-driven slideshow tool." />
-    <title>Async Processing</title>
+    <title>Async Processing with Python/Django</title>
     <style type="text/css">
       @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
       @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -130,6 +130,22 @@ class: center, middle, inverse
 with Celery and Django
 .footnote[Presented at Fort Collins Python Web meetup August 11, 2014]
 ---
+layout: false
+.left-column[
+  ## Who Am I?
+]
+.right-column[
+
+- Senior Web Application Developer at Kansas State University (Full time Remote)
+
+- Working with Django/Python for 4+ years
+
+- Twitter: @derekstegelman
+
+- GitHub: @dstegelman
+
+]
+---
 ## What is it and why should I be using it?
 ---
 layout: false
@@ -188,6 +204,8 @@ Asynchronous processing can be a great solution for several different types of i
 
 - Scheduled tasks that would otherwise be performed with cron
 
+- Clean up tasks (Auto clean up bad user records, etc.)
+
 ]
 ---
 .left-column[
@@ -205,6 +223,8 @@ Any work that can doesn't need to return a response to the user is a good candid
 - Sending anyaltyics
 
 - Processing thumbnails for photos
+
+- Cleaning and sanitizing data
 
 ]
 ---
@@ -400,6 +420,7 @@ look at the docs for further information.
 - [Celery Docs](https://celery.readthedocs.org)
 - [Celery Flower](https://github.com/mher/flower)
 - [Django Docs](https://docs.djangoproject.com/)
+- [Supervisor](http://supervisord.org)
 - [This Presentation/Demo Code](https://github.com/pynoco/celery-talk)
 
 ]
@@ -409,12 +430,11 @@ look at the docs for further information.
 name: last-page
 template: inverse
 
-## Thanks!
+## Thanks/Questions?!
 
 - Twitter: @derekstegelman
 - Github: dstegelman
 
-Slideshow created using [remark](http://github.com/gnab/remark).
     </textarea>
     <script src="http://gnab.github.com/remark/downloads/remark-0.6.5.min.js" type="text/javascript"></script>
     <script type="text/javascript">

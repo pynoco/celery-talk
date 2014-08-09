@@ -12,8 +12,8 @@ Following Along
 
 You can follow along and play the demo app pretty easily using
 Vagrant and Virtualbox.  Go ahead and download and install those
-tools for your OS.  To get started just install the following packages once
-you have successfully booted your machine.
+tools for your OS.  To get started just follow these instructions after
+installing vagrant and virtualbox.
 
 ```
 git checkout git@github.com:pynoco/celery-talk.git
