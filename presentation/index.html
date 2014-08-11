@@ -148,11 +148,41 @@ layout: false
 ---
 ## What is it and why should I be using it?
 ---
-
 In computer programming, asynchronous events are those occurring independently of the main program flow. Asynchronous actions are actions executed in a non-blocking scheme, allowing the main program flow to continue processing.
-
 ---
+layout: false
+.left-column[
+  ## Differences
+]
+.right-column[
 
+## Synchronous
+
+```python
+def blocking_view(request, object_pk=None):
+    object = get_object_or_404(SomeObject, pk=object_pk)
+    object.do_method()
+
+    # Blocking.  We can't show the template until this completes
+    object.do_long_transaction()
+
+    return render(request, 'template.html')
+```
+
+## Asynchronous
+
+```python
+def blocking_view(request, object_pk=None):
+    object = get_object_or_404(SomeObject, pk=object_pk)
+    object.do_method()
+
+    # Non-blocking.  Celery takes over this code and lets us move right along
+    ObjectTransaction.delay(object)
+
+    return render(request, 'template.html')
+```
+]
+---
 layout: false
 
   Asynchronous processing is an easy way to defer processing of
