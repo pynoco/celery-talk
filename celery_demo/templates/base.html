@@ -20,12 +20,13 @@
 
 
     <div class="container">
+        {% block content %}
         <ul>
 
-            <li><a href='#' class='btn btn-primary'>Process Sychnornously</a></li>
-            <li><a href="#" class='btn btn-primary'>Process Asynchronously</a></li>
+            <li><a href='{% url 'sync_upload' %}' class='btn btn-primary'>Upload Sychnornously</a></li>
+            <li><a href="{% url 'async_upload' %}" class='btn btn-primary'>Upload Asynchronously</a></li>
         </ul>
-
+        {% endblock content %}
     </div> <!-- /container -->
 
 

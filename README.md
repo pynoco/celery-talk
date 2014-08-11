@@ -27,13 +27,15 @@ vagrant up
 ```
 vagrant ssh
 sudo apt-get update
-sudo apt-get install python-pip python2.7-dev python-virtualenv python-setuptools git rabbitmq-server supervisor
+sudo apt-get install python-pip python2.7-dev python-virtualenv python-setuptools git rabbitmq-server supervisor libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk
 cd /home/vagrant
 virtualenv celery-talk-venv
 source celery-talk-venv/bin/activate
 cd /home/vagrant/celery-demo
 pip install -r requirements.txt
 ```
+
+
 
 Enable Rabbitmq Management Plugin (Required for flower)
 
@@ -42,6 +44,14 @@ cd /usr/lib/rabbitmq/lib/rabbitmq_server-2.7.1/sbin
 sudo ./rabbitmq-plugins enable rabbitmq_management
 sudo service rabbitmq-server restart
 ```
+
+Running the web server in the vm
+
+```
+cd /home/vagrant/celery-demo/celery_demo
+python manage.py runserver 0.0.0.0:8000
+```
+
 
 Running the Worker
 

@@ -14,3 +14,8 @@ def process_payment():
 	# this takes a long time to process
 	time.sleep(10)
 	print("processed")
+
+
+@shared_task
+def make_thumbnails(image):
+    image.make_thumbnails()

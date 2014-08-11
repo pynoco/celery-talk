@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "", "/home/vagrant/celery-demo"
 
-  config.vm.network "forwarded_port", guest: 8000, host: 9000
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
   config.vm.network "forwarded_port", guest: 5555, host: 5555
   config.ssh.forward_agent = true
 

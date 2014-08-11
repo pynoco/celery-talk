@@ -10,9 +10,9 @@ BROKER_URL = 'amqp://guest:guest@localhost/'
 
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json', 'pickle']
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_RESULT_SERIALIZER = 'pickle'
 
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
@@ -56,7 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'store',
-    'blog',
+    'sorl.thumbnail',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,12 +108,13 @@ TEMPLATE_DIRS = (
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 from celery.schedules import crontab
 
 CELERYBEAT_SCHEDULE = {
-    # Executes every Monday morning at 7:30 A.M
-    'add-every-monday-morning': {
+    'add-every-two-mins': {
         'task': 'store.tasks.add',
         'schedule': crontab(minute=2),
         'args': (16, 16),
