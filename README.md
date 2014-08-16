@@ -1,7 +1,8 @@
 Asynchronous Processing with Celery and Django
 ==============================================
 
-[Presentation](http://celery.presentations.stegelman.com)
+[Presentation](http://derek.stegelman.com/talks/async-processing-with-celery-and-django/)
+
 
 This repo includes a working demo of how to use Celery with
 Django to queue up tasks.  It includes a Vagrantfile to assist
